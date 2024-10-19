@@ -1,6 +1,5 @@
 package com.food.delivery.fooddelivery.entity;
 
-import com.food.delivery.fooddelivery.models.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,7 +9,7 @@ import java.util.Date;
 @Data
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
 

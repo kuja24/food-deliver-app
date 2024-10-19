@@ -1,12 +1,12 @@
 package com.food.delivery.fooddelivery.models;
 
+import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class User {
+@Builder
+public class UserDto {
     private String name;
     private String email;
-    private List<Address> addresses;
+    private AddressDto address;
 }

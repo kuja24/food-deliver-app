@@ -1,15 +1,21 @@
 package com.food.delivery.fooddelivery.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity(name = "RESTAURANTS")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Restaurant {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long restaurantId;
 
     private String name;
