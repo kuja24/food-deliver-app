@@ -1,21 +1,20 @@
 package com.food.delivery.fooddelivery.models;
 
-import com.food.delivery.fooddelivery.entity.Address;
-import com.food.delivery.fooddelivery.entity.User;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RestaurantDto {
 
     @NotEmpty(message = "Name cannot be empty")
