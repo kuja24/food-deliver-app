@@ -1,21 +1,19 @@
 package com.food.delivery.fooddelivery.controllers;
 
-import com.food.delivery.fooddelivery.entity.Restaurant;
 import com.food.delivery.fooddelivery.models.RestaurantDto;
 import com.food.delivery.fooddelivery.models.RestaurantRequest;
 import com.food.delivery.fooddelivery.service.RestaurantService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/api/v1/")
+@RestController
+@RequestMapping("/api/v1/restaurants")
+@SecurityRequirement(name = "bearerAuth")
 public class RestaurantEndpoint {
 
     private final RestaurantService restaurantService;
@@ -24,12 +22,14 @@ public class RestaurantEndpoint {
         this.restaurantService = restaurantService;
     }
 
-    @GetMapping("/restaurants")
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('CUSTOMER','RESTAURANT_OWNER','ADMIN','DELIVERY_PARTNER')")
     public List<RestaurantDto> getAllRestaurants() {
         return restaurantService.getAllRestaurants();
     }
 
-    @PostMapping("/restaurants")
+    @PostMapping
+    @PreAuthorize("hasAnyAuthority('RESTAURANT_OWNER','ADMIN')")
     public ResponseEntity<Long> addRestaurant(@Valid @RequestBody RestaurantRequest request) {
         return ResponseEntity.ok().body(restaurantService.createRestaurant(request));
     }

@@ -1,10 +1,7 @@
 package com.food.delivery.fooddelivery.models;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +17,8 @@ public class CreateUserRequest {
     private String name;
 
     @NotBlank(message = "Email cannot be empty")
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}",
+            flags = Pattern.Flag.CASE_INSENSITIVE, message = "Email should be valid")
     private String email;
 
     @NotBlank(message = "Setting up a password is mandatory")
@@ -34,5 +33,6 @@ public class CreateUserRequest {
     @Valid
     private AddressDto address;
 
+    @NotNull(message = "Role is mandatory")
     private UserRole role;
 }

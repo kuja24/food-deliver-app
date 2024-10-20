@@ -1,17 +1,19 @@
 package com.food.delivery.fooddelivery.controllers;
 
 import com.food.delivery.fooddelivery.models.CreateUserRequest;
-import com.food.delivery.fooddelivery.models.UserDto;
 import com.food.delivery.fooddelivery.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/api/v1/users")
+@RestController
+@RequestMapping("/api/v1/users")
 public class UsersEndpoint {
 
     private final UserService userService;
@@ -22,7 +24,15 @@ public class UsersEndpoint {
     }
 
     @PostMapping("/register")
+    @Operation(
+            summary = "Register a new user",
+            description = "This endpoint allows new users to register by providing their name, password, role & other necessary details",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "User successfully registered"),
+                    @ApiResponse(responseCode = "400", description = "Invalid registration details")
+            }
+    )
     public ResponseEntity<Long> createUser(@Valid @RequestBody CreateUserRequest request) {
-        return ResponseEntity.ok().body(userService.createUser(request));
+        return ResponseEntity.status(HttpStatus.CREATED.value()).body(userService.createUser(request));
     }
 }
