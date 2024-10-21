@@ -1,8 +1,11 @@
 package com.food.delivery.fooddelivery.controllers;
 
+import com.food.delivery.fooddelivery.exception.ErrorDetails;
 import com.food.delivery.fooddelivery.models.CreateUserRequest;
 import com.food.delivery.fooddelivery.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -29,7 +32,12 @@ public class UsersEndpoint {
             description = "This endpoint allows new users to register by providing their name, password, role & other necessary details",
             responses = {
                     @ApiResponse(responseCode = "201", description = "User successfully registered"),
-                    @ApiResponse(responseCode = "400", description = "Invalid registration details")
+                    @ApiResponse(responseCode = "400", description = "Invalid registration details",
+                            content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDetails.class))),
+                    @ApiResponse(responseCode = "500", description = "Internal server error",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorDetails.class)))
             }
     )
     public ResponseEntity<Long> createUser(@Valid @RequestBody CreateUserRequest request) {
