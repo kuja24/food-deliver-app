@@ -6,6 +6,7 @@ import com.food.delivery.fooddelivery.auth.JwtRequestFilter;
 import com.food.delivery.fooddelivery.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -22,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Profile("!test")
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
@@ -43,9 +45,8 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
-                .requestMatchers("/api/v1/auth/**").permitAll() // Allow unauthenticated access to auth endpoints
-                .requestMatchers("/api/v1/users/register/**").permitAll()  // Accessible by all to register
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
+                .requestMatchers("/api/v1/auth/**", "/api/v1/users/register/**").permitAll()  // Allow auth and register endpoints
                 .anyRequest().authenticated() // Protect all other endpoints
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
