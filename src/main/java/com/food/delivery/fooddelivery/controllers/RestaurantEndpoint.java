@@ -41,13 +41,15 @@ public class RestaurantEndpoint {
     )
     public ResponseEntity<List<RestaurantDto>> getRestaurants(
             @RequestParam(required = false) String name,
+            @RequestParam(required = false) String addressLine,
             @RequestParam(required = false) String city,
             @RequestParam(required = false) String state,
             @RequestParam(required = false) String zip,
             @RequestParam(required = false) String cuisineType,
             @RequestParam(required = false) String hoursOfOperation
+
     ) {
-        return ResponseEntity.ok().body(restaurantService.getRestaurants(name, city, state, zip, cuisineType, hoursOfOperation));
+        return ResponseEntity.ok().body(restaurantService.getRestaurants(name, addressLine,city, state, zip, cuisineType, hoursOfOperation));
     }
 
     @PostMapping

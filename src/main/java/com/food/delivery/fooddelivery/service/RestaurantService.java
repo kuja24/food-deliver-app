@@ -88,9 +88,9 @@ public class RestaurantService {
         return convertEntityToDto(updatedRestaurant);
     }
 
-    public List<RestaurantDto> getRestaurants(String name, String city, String state, String zip, String cuisineType, String hoursOfOperation) {
+    public List<RestaurantDto> getRestaurants(String name, String addressLine, String city, String state, String zip, String cuisineType, String hoursOfOperation) {
         // Build the specification dynamically
-        Specification<Restaurant> spec = RestaurantSpecification.filterByCriteria(name, city, state, zip, cuisineType, hoursOfOperation);
+        Specification<Restaurant> spec = RestaurantSpecification.filterByCriteria(name, addressLine, city, state, zip, cuisineType, hoursOfOperation);
 
         // Fetch restaurants using the specification
         List<Restaurant> restaurants = restaurantRepository.findAll(spec);
@@ -110,6 +110,7 @@ public class RestaurantService {
 
     private RestaurantDto convertEntityToDto(Restaurant restaurant) {
         AddressDto addressDto = AddressDto.builder()
+                .addressLine(restaurant.getAddress().getAddressLine())
                 .state(restaurant.getAddress().getState())
                 .city(restaurant.getAddress().getCity())
                 .zip(restaurant.getAddress().getZipCode())

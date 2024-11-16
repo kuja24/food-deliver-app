@@ -32,7 +32,7 @@ public class MenuEndpoint {
     @PreAuthorize("hasAnyAuthority('RESTAURANT_OWNER', 'ADMIN')")
     @Operation(
             summary = "Add a new menu",
-            description = "This endpoint will allows to add menus in the particular restaurant.",
+            description = "This endpoint will allows to add menus in the particular restaurant. Only restaurant owners and admin can add menu details.",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Menu added successfully"),
                     @ApiResponse(responseCode = "404", description = "Owner mentioned in request does not exist in system",
