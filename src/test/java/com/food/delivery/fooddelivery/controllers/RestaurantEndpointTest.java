@@ -93,7 +93,7 @@ class RestaurantEndpointTest {
         // Mock service to return a list of RestaurantDto
         List<RestaurantDto> restaurants = new ArrayList<>();
         restaurants.add(restaurantDto);
-        when(restaurantService.getRestaurants(any(),any(),any(),any(),any(),any())).thenReturn(restaurants);
+        when(restaurantService.getRestaurants(any(),any(),any(),any(),any(),any(),any())).thenReturn(restaurants);
 
         // Perform GET request and validate the response
         mockMvc.perform(get("/api/v1/restaurants")

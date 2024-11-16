@@ -12,13 +12,18 @@ import jakarta.persistence.criteria.Predicate;
 
 public class RestaurantSpecification {
 
-    public static Specification<Restaurant> filterByCriteria(String name, String city, String state, String zip, String cuisineType, String hoursOfOperation) {
+    public static Specification<Restaurant> filterByCriteria(String name, String addressLine, String city, String state, String zip, String cuisineType, String hoursOfOperation) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             // Filter by name
             if (name != null && !name.isEmpty()) {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
+            }
+
+            if(addressLine !=null && !addressLine.isEmpty())
+            {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("address").get("addressLine")), "%" + addressLine.toLowerCase() + "%")); //Pooja
             }
 
             // Filter by city

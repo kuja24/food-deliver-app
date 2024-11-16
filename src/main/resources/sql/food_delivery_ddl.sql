@@ -93,40 +93,40 @@ CREATE TABLE `fooddelivery`.`ORDER_DETAILS` (
 ON DELETE CASCADE
  ON UPDATE NO ACTION);
 
-CREATE TABLE `fooddelivery`.`DELIVERY` (
-  `delivery_id` INT NOT NULL AUTO_INCREMENT,
-  `order_id` INT NOT NULL,
-  `delivery_partner_id` INT NOT NULL,
-  `status` ENUM("assigned", "picked_up", "en_route", "delivered") NOT NULL,
-  `created_at` TIMESTAMP NOT NULL,
-  `picked_up_at` TIMESTAMP NOT NULL,
-  `delivered_at` TIMESTAMP NOT NULL,
-  PRIMARY KEY (`delivery_id`),
-  INDEX `order_id_idx` (`order_id` ASC) VISIBLE,
-  INDEX `user_id_idx` (`delivery_partner_id` ASC) VISIBLE,
- CONSTRAINT `order_id`
- FOREIGN KEY (`order_id`)
- REFERENCES `fooddelivery`.`ORDER_DETAILS` (`order_id`)
- ON DELETE CASCADE
- ON UPDATE NO ACTION,
- CONSTRAINT `user_id`
- FOREIGN KEY (`user_id`)
- REFERENCES `fooddelivery`.`USERS` (`user_id`)
- ON DELETE CASCADE
- ON UPDATE NO ACTION);
+# CREATE TABLE `fooddelivery`.`DELIVERY` (
+#   `delivery_id` INT NOT NULL AUTO_INCREMENT,
+#   `order_id` INT NOT NULL,
+#   `delivery_partner_id` INT NOT NULL,
+#   `status` ENUM("assigned", "picked_up", "en_route", "delivered") NOT NULL,
+#   `created_at` TIMESTAMP NOT NULL,
+#   `picked_up_at` TIMESTAMP NOT NULL,
+#   `delivered_at` TIMESTAMP NOT NULL,
+#   PRIMARY KEY (`delivery_id`),
+#   INDEX `order_id_idx` (`order_id` ASC) VISIBLE,
+#   INDEX `user_id_idx` (`delivery_partner_id` ASC) VISIBLE,
+#  CONSTRAINT `order_id`
+#  FOREIGN KEY (`order_id`)
+#  REFERENCES `fooddelivery`.`ORDER_DETAILS` (`order_id`)
+#  ON DELETE CASCADE
+#  ON UPDATE NO ACTION,
+#  CONSTRAINT `user_id`
+#  FOREIGN KEY (`user_id`)
+#  REFERENCES `fooddelivery`.`USERS` (`user_id`)
+#  ON DELETE CASCADE
+#  ON UPDATE NO ACTION);
 
-CREATE TABLE `fooddelivery`.`DELIVERY_PARTNER_DETAILS` (
-  `delivery_partner_id` INT NOT NULL,
-  `current_loc_lat` DECIMAL(10,8) NOT NULL,
-  `current_loc_long` DECIMAL(11,8) NOT NULL,
-  `is_available` BOOLEAN NOT NULL DEFAULT TRUE,
-  PRIMARY KEY (`delivery_id`),
-  INDEX `user_id_idx` (`delivery_partner_id` ASC) VISIBLE,
- CONSTRAINT `user_id`
- FOREIGN KEY (`user_id`)
- REFERENCES `fooddelivery`.`USERS` (`user_id`)
- ON DELETE CASCADE
- ON UPDATE NO ACTION);
+# CREATE TABLE `fooddelivery`.`DELIVERY_PARTNER_DETAILS` (
+#   `delivery_partner_id` INT NOT NULL,
+#   `current_loc_lat` DECIMAL(10,8) NOT NULL,
+#   `current_loc_long` DECIMAL(11,8) NOT NULL,
+#   `is_available` BOOLEAN NOT NULL DEFAULT TRUE,
+#   PRIMARY KEY (`delivery_id`),
+#   INDEX `user_id_idx` (`delivery_partner_id` ASC) VISIBLE,
+#  CONSTRAINT `user_id`
+#  FOREIGN KEY (`user_id`)
+#  REFERENCES `fooddelivery`.`USERS` (`user_id`)
+#  ON DELETE CASCADE
+#  ON UPDATE NO ACTION);
 
 CREATE TABLE `fooddelivery`.`PAYMENT` (
  `payment_id` INT NOT NULL AUTO_INCREMENT,
